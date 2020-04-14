@@ -312,7 +312,7 @@ Now let's edit a test file to create a _run directory_:
 
 ```
 cd perl
-CopyRunDirs.input
+nano CopyRunDirs.input
 ```
 Find the following lines and replace. Let's asume your user name is _totoro_ (you have to replace _totoro_ by your user name)
 
@@ -339,38 +339,64 @@ In our example, it would be:
 
 _Let's create now the run directory_:
 
-`
+```
+./gcCopyRunDirs
+```
 
-`
-
-This will create a /Test/rundirs under /geos_chem_classic. Go to that folder
+This is an _input file_ and it will create a /Test/rundirs under /geos_chem_classic. Go to that folder
 ```
 cd ~/geos_chem_classic/Test/rundirs/geosfp_4x5_standard
 ```
 This is a _run directory_
 We'll now compile this! But before that, let's make sure you have applied the environments we created waaaay above, in the beginning. Remember when you edited .bash_profile? Well, it's going to pay off now:
 ```
-source ~/.bash_profile
-```
-Now, to compile 🤞:
-```
-make
-```
-Hopefully everything went well.
 
-Finally, we will run a _dry simulation_. This is a simulation without any data files: It will check which data files we need for this specific simulation and then create a file we can use to download **only the data we need**. Once we do that, we'll then be able to run the _real_ simulation (aka _production simulation_)
+source ~/.bash_profile
+
 ```
+
+Now, to compile 🤞:
+
+```
+
+make -j16 build
+
+```
+
+**Note that the j16 goes according to the number of cores you have available** If you have 8 cores, use j8, etc.
+
+
+Hopefully everything went well. You can find more info about this step [here](http://wiki.seas.harvard.edu/geos-chem/index.php/Creating_GEOS-Chem_run_directories).
+
+Finally, we will run a _dry simulation_. This is a simulation without any data files: It will check which data files we need for this specific simulation and then create a file we can use to download **only the data we need**. Once we do that, we'll then be able to run the _real_ simulation (aka _production simulation_). Read more about dry runs [here](http://wiki.seas.harvard.edu/geos-chem/index.php/Downloading_data_with_the_GEOS-Chem_dry-run_option).
+
+```
+
 ./geos --dryrun > log.dryrun
+
 ```
 This will take a while. Once it finishes, log.dryrun will have a list of the files we need to download. 
 Fear not! It won't be a manual download. Luckily each run directory comes with a python script to download it!
+
 ```
 ./download_data.py log.dryrun --cc
 ```
-And this may take a long time, since it will fetch a looot of data. Pat youself in the back and go do something else.
 
+And this may take a long time, since it will fetch a looot of data. Pat youself in the back and go do something else. For example, try some ASCII art like this:
+```
 
+    /\_____/\
+   /  o   o  \
+  ( ==  ^  == )
+   )         (
+  (           )
+ ( (  )   (  ) )
+(__(__)___(__)__)
 
+```
+
+# Congrats!! (Again!)
+At this point it means you have the basic GEOS Chem compiling and running. Now you need to learn how to use it :)
 
 
 
