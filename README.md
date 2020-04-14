@@ -148,7 +148,7 @@ nano geos_python_req.yml
 `
 Paste the following:
 
-`
+~~~
 name: geos-python-env
 channels:
     - defaults
@@ -186,7 +186,8 @@ dependencies:
         - graphviz # visualize dask graph (python package)
         - awscli   # AWS command line interface
         - pypdf2   # Save output to PDF (and allows for bookmarks in PDF files)
-`
+~~~
+
 Save (Ctrl+o, enter, Ctrl+X) and then run:
 `
 conda env create -f python_req.yml 
@@ -209,7 +210,7 @@ nano .bash_profile`
 
 You'll enter on a text editor called nano. Add the following lines to the .bash_profile file (It will probably be empty ifyou are on a fresh installation):
 
-`
+~~~
 #Env vars needed by GEOS Chem
 export FC=gfortran
 export CC=gcc
@@ -248,7 +249,7 @@ export OMP_STACKSIZE=1000m
 #set the number of computational cores (aka threads) that you would like GEOS-Chem to use. 
 export OMP_NUM_THREADS=30
 #NOTE: It seems that OMP_NUM_THREADS and OMP_STACKSIZE should be defined not only in the bash startup script, but in also each GEOS-Chem run script that you use. 
-`
+~~~
 
 Then press Ctrl+O enter to save the file and then Ctrl+X to exit.
 **Note that the OMP_NUM_THREADS can be as high as the number of threads or virtual cores your CPUs you have**
@@ -286,12 +287,12 @@ CopyRunDirs.input
 `
 Find the following lines and replace. Let's asume your user name is _totoro_ (you have to replace _totoro_ by your user name)
 
-`
+~~~
 GCGRID_ROOT    : /media/totoro/bigfathd/GEOS-CHEM/gcgrid
 CODE_DIR       : {HOME}/geos_chem_classic/GEOS_Chem_Classic_Code_V_{VERSION}
 UNIT_TEST_ROOT : {HOME}/geos_chem_classic/UT
 COPY_PATH      : {HOME}/geos_chem_classic/Test/rundirs
-`
+~~~
 **OK, let's pause here for a moment**
 You need to understand what we are doing here, so:
 GCGRID_ROOT is the full path to where the DATA for your simulation is (Meteorological data, etc). Even if you don't have the data yet, just create the appropiate directories / folders.
