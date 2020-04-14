@@ -34,6 +34,9 @@ First, let's update the package list
 
 `sudo apt update`
 
+And install git
+`sudo apt install git`
+
 # C, C++ and Fortran compilers
 
 `sudo apt install gcc gfortran g++`
@@ -115,7 +118,86 @@ Cool, right?
 
 # Python3
 
-Your system probably came with Python 3 already, but let's install the 3.7 and make it the default python.
+Lots of documentation out there recommend using conda (anaconda / miniconda). ~~I don't see the reason to use conda in a unix environment (it would make sense in Windows)~~ We'll need to install some packages that are available on conda but not with pip. So using conda _makes sense_.
+
+Install curl and retrieve the anaconda installer script
+`
+sudo apt install curl
+curl -O https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
+`
+It's always a good idea to check the integrity of the file. You can do that with:
+`
+md5sum Anaconda3-2020.02-Linux-x86_64.sh
+`
+The output should be the same as listed on [here](https://repo.anaconda.com/archive/).
+
+Now let's run the installation script:
+`
+bash Anaconda3-2020.02-Linux-x86_64.sh
+`
+This will install Anaconda. Say yes to everything. Once its done, do:
+`
+conda deactivate
+`
+To get out of the "base" virtual environment.
+
+Let's create a file to put all the python packages we want to install in our virtual env, and copy a bunch of packages. This file is copied from  from [here](https://github.com/geoschem/geos-chem-cloud/blob/master/scripts/build_environment/python/geo.yml)
+
+`
+nano geos_python_req.yml
+`
+Paste the following:
+
+`
+name: geos-python-env
+channels:
+    - defaults
+    - conda-forge
+dependencies:
+    - python=3.6    # Python version 3.6
+    - bottleneck    # C-optimized array functions for NumPy
+    - cartopy       # Geographic plotting toolkit
+    - cython        # Transpile Python->C
+    - dask          # Parallel processing library
+    - graphviz      # visualize dask graph (binary)
+    - future        # Python 2/3 compatibility
+    - h5py          # Wrapper for HDF5
+    - ipython       # IPython interpreter and tools
+    - jupyter       # Jupyter federation architecture
+    - jupyterlab    # next-generation Jupyter
+    - matplotlib    # 2D plotting library
+    - netcdf4       # netcdf4 Python API, backend for xarray
+    - numpy         # N-d array and numerics
+    - pandas        # Labeled array library
+    - scipy         # Common math/stats/science functions
+    - scikit-learn  # Machine learning library
+    - statsmodels   # Regression/modeling toolkit
+    - seaborn       # Statistical visualizations
+    - six           # Python 2/3 compatibility
+    - tqdm          # Nice progressbar for longer computations
+    - xarray        # the major tool to work with NetCDF data
+    - xbpch         # Interface for bpch output files
+    - esmpy         # Python interface to ESMF (xesmf dependency)
+    - pip:
+        # These are additional libraries to search for on PyPI
+        - xesmf    # Regridding xarray and numpy data
+        - "git+https://github.com/JiaweiZhuang/cubedsphere.git@v0.1.1"  # plot GCHP data
+        - h5netcdf # allow HDF5-backend for xarray
+        - graphviz # visualize dask graph (python package)
+        - awscli   # AWS command line interface
+        - pypdf2   # Save output to PDF (and allows for bookmarks in PDF files)
+`
+Save (Ctrl+o, enter, Ctrl+X) and then run:
+`
+conda env create -f python_req.yml 
+`
+This will create a python environment called _geos-python-env_. Activate it
+`
+conda activate geos-python-env
+`
+By the way, all the virtual envirnments you create with conda will be under _~/anaconda3/envs_.
+
+We are done with the python setup! :)
 
 # Environment Variables
 
@@ -173,12 +255,10 @@ Then press Ctrl+O enter to save the file and then Ctrl+X to exit.
 Remember we checked the information about our hardware when we just started?
 The CPU I'm using, as I noted, is a _AMD Ryzen Threadripper 2950X Processor_. It tells me it has 16 cores. If you do a quick google search, you'll see this CPU has 32 _threads_. This mean I can use up to 32 threads for the parallelization with OpenMP. Adjust your number accordingly.
 By thw way, to find the number of threads you have, you can also use nproc:
-`nproc`
 
-
-
-
-
+`
+nproc
+`
 
 
 
