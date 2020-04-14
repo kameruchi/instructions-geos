@@ -259,10 +259,85 @@ By thw way, to find the number of threads you have, you can also use nproc:
 `
 nproc
 `
+# Initial setup is done!
+Congrats! If you made it to here, you deserve a cookie 🍪 
+Maybe even two 🍪 🍪 .
 
+Now lets start dealing with the actual code....
 
+First download the source:
 
+`
+git clone https://github.com/geoschem/geos-chem.git GEOS_Chem_Classic_Code_V_12.7.2
+`
+This will download the source code to a folder called GEOS_Chem_Classic_Code_V_12.7.2
 
+Let's also download the _Unit Test_ so we can test the installation:
+
+`
+git clone https://github.com/geoschem/geos-chem-unittest UT
+cd UT
+`
+Now let's edit a test file to create a _run directory_:
+
+`
+cd perl
+CopyRunDirs.input
+`
+Find the following lines and replace. Let's asume your user name is _totoro_ (you have to replace _totoro_ by your user name)
+
+`
+GCGRID_ROOT    : /media/totoro/bigfathd/GEOS-CHEM/gcgrid
+CODE_DIR       : {HOME}/geos_chem_classic/GEOS_Chem_Classic_Code_V_{VERSION}
+UNIT_TEST_ROOT : {HOME}/geos_chem_classic/UT
+COPY_PATH      : {HOME}/geos_chem_classic/Test/rundirs
+`
+**OK, let's pause here for a moment**
+You need to understand what we are doing here, so:
+GCGRID_ROOT is the full path to where the DATA for your simulation is (Meteorological data, etc). Even if you don't have the data yet, just create the appropiate directories / folders.
+
+CODE_DIR is where the _source code_ of GEOS Chem is.
+UNITE_TEST_ROOT is where the Unit Test code lives.
+And COPY_PATH is where the script will output the _run directory_
+
+While we are here, you need to also create the following structure under your 
+directory with the DATA:
+/data/ExtData
+In our example, it would be:
+/media/totoro/bigfathd/GEOS-CHEM/gcgrid/data/ExtData/
+**It's ok if this is empty, but it needs to be there**
+
+_Let's create now the run directory_:
+
+`
+
+`
+
+This will create a /Test/rundirs under /geos_chem_classic. Go to that folder
+`
+cd ~/geos_chem_classic/Test/rundirs/geosfp_4x5_standard
+`
+This is a _run directory_
+We'll now compile this! But before that, let's make sure you have applied the environments we created waaaay above, in the beginning. Remember when you edited .bash_profile? Well, it's going to pay off now:
+`
+source ~/.bash_profile
+`
+Now, to compile 🤞:
+`
+make
+`
+Hopefully everything went well.
+
+Finally, we will run a _dry simulation_. This is a simulation without any data files: It will check which data files we need for this specific simulation and then create a file we can use to download **only the data we need**. Once we do that, we'll then be able to run the _real_ simulation (aka _production simulation_)
+`
+./geos --dryrun > log.dryrun
+`
+This will take a while. Once it finishes, log.dryrun will have a list of the files we need to download. 
+Fear not! It won't be a manual download. Luckily each run directory comes with a python script to download it!
+`
+./download_data.py log.dryrun --cc
+`
+And this may take a long time, since it will fetch a looot of data. Pat youself in the back and go do something else.
 
 
 
