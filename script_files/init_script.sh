@@ -21,15 +21,11 @@ fi
 
 cd ~
 
-### Fetch files we'll need
-curl https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh > install_anaconda3-2020.02.sh
-curl -O https://github.com/kameruchi/instructions-geos/script_files/conda_env.yml
-curl https://github.com/kameruchi/instructions-geos/bash_p.sh >> .bash_profile
 
 # Install ubuntu packages
 sudo apt update
 
-sudo apt install git tmux curl 
+sudo apt install git tmux curl
 
 sudo apt install gcc gfortran g++
 
@@ -38,6 +34,12 @@ sudo apt-get install libnetcdf-dev libnetcdff-dev
 sudo apt install netcdf-bin
 
 sudo apt install libopenmpi-dev
+
+### Fetch files we'll need
+curl https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh > install_anaconda3-2020.02.sh
+curl -O https://github.com/kameruchi/instructions-geos/script_files/conda_env.yml
+curl https://github.com/kameruchi/instructions-geos/script_files/bash_p.sh >> .bash_profile
+
 
 #Python conda
 
