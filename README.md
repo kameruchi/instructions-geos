@@ -280,7 +280,16 @@ export OMP_STACKSIZE=1000m
 
 #set the number of computational cores (aka threads) that you would like GEOS-Chem to use. 
 export OMP_NUM_THREADS=30
-#NOTE: It seems that OMP_NUM_THREADS and OMP_STACKSIZE should be defined not only in the bash startup script, but in also each GEOS-Chem run script that you use. 
+#NOTE: It seems that OMP_NUM_THREADS and OMP_STACKSIZE should be defined not only in the bash startup script, but in also each GEOS-Chem run script that you use.
+
+###also load bashrc if needed
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+    fi
+fi
+
 ~~~
 
 Then press Ctrl+O enter to save the file and then Ctrl+X to exit.
@@ -411,6 +420,18 @@ Now, the run:
 
 # Congrats!! (Again!)
 At this point it means you have the basic GEOS Chem compiling and running. Now you need to learn how to use it :)
+
+
+## Extras
+
+### Using tmux to leave the process running and close the ssh session
+
+This is not really related to GEOS, but if you connect via ssh to the _machine_, we can use tmux to leave the simulations running and reconnecto to them later
+```
+tmux new -s run-name-1
+```
+Will open a new tmux session (with bash). You can activate your conda env there and run whatever long process you want. You can them leave that session using _Ctrl+b_ and then the key _d_. This will de-attach the session. You can open multiple sessions. To list all the running sessions, use `tmux ls`, and to connect to any of these sessions, use `tmux a -t session-name`. To kill the sessions, `tmux kill-ses -t session-name`. [Here is a good intro and cheatsheet](https://dev.to/jacobherrington/give-your-terminal-super-powers-tmux-cheatsheet-1p6p).
+
 
 
 
