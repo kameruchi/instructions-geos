@@ -34,8 +34,11 @@ First, let's update the package list
 
 ```sudo apt update```
 
-And install git
-```sudo apt install git```
+And install git and tmux:
+
+```sudo apt install git tmux```
+
+_I use tmux to leave processes running, disconnect from my ssh session and reconnect later. There are other ways to do this._
 
 # C, C++ and Fortran compilers
 
@@ -393,6 +396,17 @@ And this may take a long time, since it will fetch a looot of data. Pat youself 
  ( (  )   (  ) )
 (__(__)___(__)__)
 
+```
+
+Once the data download is done, we can now do the _real_ run.
+
+**Note** Check if your python virtual environment is still _geos-python-env_ and not _base_ (it will be written before your user name, like `(geos-python-env) totoro@labcomputer:`
+If for some weird reason it was reset to _base_, just activate the other one, `conda activate geos-python-en`
+
+Now, the run:
+
+```
+./geos
 ```
 
 # Congrats!! (Again!)
