@@ -1,6 +1,9 @@
 # Notes about setting up GEOS-Chem
 
-These are some notes about my experience setting up a new cluster to run GEOS–Chem.
+Notes / step by step recipe to set up a new computer to run GEOS–Chem classic.
+This repo also contains a bash script you can use to get the first part of this recipe automatically: _scripts/init_script.sh_
+The script will download and setup everything (compilers, tools, python env and GEOS Chem source code's latest stable release and Unit Tests). It will leave your 🖥️ ready to create your first run.
+However, if this is your first time, I recommend you follow the step by step (or at least read it) insted of using the script. That way you'll learn why you need what, and where to look if there are any problems you need to debug when compiling the code.
 
 **What is GEOS-Chem?**
 
@@ -320,6 +323,11 @@ Let's also download the _Unit Test_ so we can test the installation:
 git clone https://github.com/geoschem/geos-chem-unittest UT
 cd UT
 ```
+
+# Ready to Run!
+
+**If you have ran the script instead of doing all of this manually, here is where you should pick up once the script has finished preparing your env**
+
 Now let's edit a test file to create a _run directory_:
 
 ```
