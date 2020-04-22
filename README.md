@@ -5,6 +5,8 @@ This repo also contains a bash script you can use to get the first two parts of 
 
 The scripts will download and setup everything (compilers, tools, python env and GEOS Chem source code's latest stable release and Unit Tests). It will leave your 🖥️ ready to create your first run.
 
+Ideally, you would run the _init_script_ on a fresh installation, **only once**. And then every new (linux) user you want to run the code would only need to run the local_GEOS_install script once (without needing to _sudo_).
+
 However, if this is your first time, I recommend you follow the step by step (or at least read it) insted of using the script. That way you'll learn why you need what, and where to look if there are any problems you need to debug when compiling the code.
 
 **What is GEOS-Chem?**
