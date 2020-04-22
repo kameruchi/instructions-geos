@@ -1,8 +1,10 @@
 # Notes about setting up GEOS-Chem
 
 Notes / step by step recipe to set up a new computer to run GEOS–Chem classic.
-This repo also contains a bash script you can use to get the first part of this recipe automatically: _scripts/init_script.sh_
-The script will download and setup everything (compilers, tools, python env and GEOS Chem source code's latest stable release and Unit Tests). It will leave your 🖥️ ready to create your first run.
+This repo also contains a bash script you can use to get the first two parts of this recipe automatically: _scripts/init_script.sh_  to install all the needed dependencies and libraries and _scripts/local_GEOS_install_script.sh_ to finish the setup of an appropiated python environment and the download of the latest version of the GEOS Chem source code.
+
+The scripts will download and setup everything (compilers, tools, python env and GEOS Chem source code's latest stable release and Unit Tests). It will leave your 🖥️ ready to create your first run.
+
 However, if this is your first time, I recommend you follow the step by step (or at least read it) insted of using the script. That way you'll learn why you need what, and where to look if there are any problems you need to debug when compiling the code.
 
 **What is GEOS-Chem?**
@@ -88,6 +90,12 @@ gfortran simple_xy_wr.f90 -o test_nc.exe -I/usr/include -lnetcdff
 ```
 
 See how we had included the /usr/include I mentioned before?
+Now run it
+
+```
+./test_nc.exe
+```
+
 You should see a message saying something like _SUCCESS writing example file simple_xy.nc_. Let's check the file content (with our new tool, ncdump)
 
 ```
@@ -217,7 +225,6 @@ dependencies:
         - "git+https://github.com/JiaweiZhuang/cubedsphere.git@v0.1.1"  # plot GCHP data
         - h5netcdf # allow HDF5-backend for xarray
         - graphviz # visualize dask graph (python package)
-        - awscli   # AWS command line interface
         - pypdf2   # Save output to PDF (and allows for bookmarks in PDF files)
 ~~~
 
